@@ -65,20 +65,16 @@ export function AppShell({ children }: { children: ReactNode }) {
         <nav className="flex-1 p-3 space-y-0.5">
           {NAV.map((item, idx) => {
             const Icon = item.icon;
-            const isActive = currentPath === item.to && idx === 0;
-            return (
-              <Link
-                key={idx}
-                to={item.to}
-                disabled={item.disabled}
-                className={cn(
-                  "flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors",
-                  isActive
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50",
-                  item.disabled && "opacity-40 cursor-not-allowed pointer-events-none",
-                )}
-              >
+            const isActive = currentPath === item.to && !item.disabled;
+            const baseCls = cn(
+              "flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors",
+              isActive
+                ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent/50",
+              item.disabled && "opacity-40 cursor-not-allowed",
+            );
+            const inner = (
+              <>
                 <Icon className="h-4 w-4" />
                 {item.label}
                 {item.disabled && (
@@ -86,7 +82,12 @@ export function AppShell({ children }: { children: ReactNode }) {
                     pronto
                   </span>
                 )}
-              </Link>
+              </>
+            );
+            return item.disabled ? (
+              <div key={idx} className={baseCls}>{inner}</div>
+            ) : (
+              <Link key={idx} to={item.to} className={baseCls}>{inner}</Link>
             );
           })}
         </nav>
