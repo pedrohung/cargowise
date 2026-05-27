@@ -14,6 +14,113 @@ export type Database = {
   }
   public: {
     Tables: {
+      client_locations: {
+        Row: {
+          address_line: string
+          contact_name: string | null
+          contact_phone: string | null
+          created_at: string
+          id: string
+          is_favorite: boolean
+          label: string
+          latitude: number | null
+          location_type: Database["public"]["Enums"]["location_type"]
+          longitude: number | null
+          municipality_id: string
+          owner_id: string
+          province_id: string
+          reference: string | null
+          updated_at: string
+        }
+        Insert: {
+          address_line: string
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          id?: string
+          is_favorite?: boolean
+          label: string
+          latitude?: number | null
+          location_type?: Database["public"]["Enums"]["location_type"]
+          longitude?: number | null
+          municipality_id: string
+          owner_id: string
+          province_id: string
+          reference?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address_line?: string
+          contact_name?: string | null
+          contact_phone?: string | null
+          created_at?: string
+          id?: string
+          is_favorite?: boolean
+          label?: string
+          latitude?: number | null
+          location_type?: Database["public"]["Enums"]["location_type"]
+          longitude?: number | null
+          municipality_id?: string
+          owner_id?: string
+          province_id?: string
+          reference?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_locations_municipality_id_fkey"
+            columns: ["municipality_id"]
+            isOneToOne: false
+            referencedRelation: "municipalities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "client_locations_province_id_fkey"
+            columns: ["province_id"]
+            isOneToOne: false
+            referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      municipalities: {
+        Row: {
+          code: string
+          created_at: string
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          province_id: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          province_id: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          province_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "municipalities_province_id_fkey"
+            columns: ["province_id"]
+            isOneToOne: false
+            referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -41,6 +148,36 @@ export type Database = {
           id?: string
           phone?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      provinces: {
+        Row: {
+          code: string
+          created_at: string
+          display_order: number
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          display_order?: number
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
         }
         Relationships: []
       }
@@ -80,6 +217,12 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "operator" | "accountant" | "driver" | "client"
+      location_type:
+        | "residential"
+        | "commercial"
+        | "warehouse"
+        | "pickup_point"
+        | "other"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -208,6 +351,13 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "operator", "accountant", "driver", "client"],
+      location_type: [
+        "residential",
+        "commercial",
+        "warehouse",
+        "pickup_point",
+        "other",
+      ],
     },
   },
 } as const

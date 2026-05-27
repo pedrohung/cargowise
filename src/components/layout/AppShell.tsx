@@ -21,7 +21,7 @@ const NAV = [
   { to: "/dashboard", label: "Clientes", icon: Users, disabled: true },
   { to: "/dashboard", label: "Pedidos", icon: FileText, disabled: true },
   { to: "/dashboard", label: "Flota", icon: Truck, disabled: true },
-  { to: "/dashboard", label: "Geografía", icon: MapPin, disabled: true },
+  { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/dashboard", label: "Tracking", icon: Map, disabled: true },
   { to: "/dashboard", label: "Costos", icon: DollarSign, disabled: true },
 ];
