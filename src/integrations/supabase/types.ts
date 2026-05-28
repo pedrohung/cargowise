@@ -83,6 +83,57 @@ export type Database = {
           },
         ]
       }
+      clients: {
+        Row: {
+          balance: number
+          contact_name: string | null
+          created_at: string
+          credit_limit: number
+          email: string | null
+          id: string
+          is_active: boolean
+          is_company: boolean
+          name: string
+          notes: string | null
+          owner_id: string
+          phone: string | null
+          tax_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          balance?: number
+          contact_name?: string | null
+          created_at?: string
+          credit_limit?: number
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          is_company?: boolean
+          name: string
+          notes?: string | null
+          owner_id?: string
+          phone?: string | null
+          tax_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          balance?: number
+          contact_name?: string | null
+          created_at?: string
+          credit_limit?: number
+          email?: string | null
+          id?: string
+          is_active?: boolean
+          is_company?: boolean
+          name?: string
+          notes?: string | null
+          owner_id?: string
+          phone?: string | null
+          tax_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       municipalities: {
         Row: {
           code: string
@@ -117,6 +168,222 @@ export type Database = {
             columns: ["province_id"]
             isOneToOne: false
             referencedRelation: "provinces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          declared_value: number | null
+          description: string
+          height_cm: number | null
+          id: string
+          length_cm: number | null
+          order_id: string
+          package_type: Database["public"]["Enums"]["package_type"]
+          quantity: number
+          weight_kg: number | null
+          width_cm: number | null
+        }
+        Insert: {
+          created_at?: string
+          declared_value?: number | null
+          description: string
+          height_cm?: number | null
+          id?: string
+          length_cm?: number | null
+          order_id: string
+          package_type?: Database["public"]["Enums"]["package_type"]
+          quantity?: number
+          weight_kg?: number | null
+          width_cm?: number | null
+        }
+        Update: {
+          created_at?: string
+          declared_value?: number | null
+          description?: string
+          height_cm?: number | null
+          id?: string
+          length_cm?: number | null
+          order_id?: string
+          package_type?: Database["public"]["Enums"]["package_type"]
+          quantity?: number
+          weight_kg?: number | null
+          width_cm?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_status_history: {
+        Row: {
+          changed_by: string | null
+          created_at: string
+          from_status: Database["public"]["Enums"]["order_status"] | null
+          id: string
+          notes: string | null
+          order_id: string
+          to_status: Database["public"]["Enums"]["order_status"]
+        }
+        Insert: {
+          changed_by?: string | null
+          created_at?: string
+          from_status?: Database["public"]["Enums"]["order_status"] | null
+          id?: string
+          notes?: string | null
+          order_id: string
+          to_status: Database["public"]["Enums"]["order_status"]
+        }
+        Update: {
+          changed_by?: string | null
+          created_at?: string
+          from_status?: Database["public"]["Enums"]["order_status"] | null
+          id?: string
+          notes?: string | null
+          order_id?: string
+          to_status?: Database["public"]["Enums"]["order_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_status_history_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          base_cost: number | null
+          client_id: string
+          created_at: string
+          created_by: string
+          delivered_at: string | null
+          destination_address: string
+          destination_lat: number | null
+          destination_lng: number | null
+          destination_location_id: string | null
+          distance_km: number | null
+          driver_id: string | null
+          estimated_duration_minutes: number | null
+          id: string
+          is_paid: boolean
+          notes: string | null
+          order_number: string
+          origin_address: string
+          origin_lat: number | null
+          origin_lng: number | null
+          origin_location_id: string | null
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          picked_up_at: string | null
+          recipient_name: string | null
+          recipient_phone: string | null
+          scheduled_pickup_at: string | null
+          status: Database["public"]["Enums"]["order_status"]
+          total_cost: number | null
+          tracking_code: string
+          updated_at: string
+          vehicle_id: string | null
+        }
+        Insert: {
+          base_cost?: number | null
+          client_id: string
+          created_at?: string
+          created_by?: string
+          delivered_at?: string | null
+          destination_address: string
+          destination_lat?: number | null
+          destination_lng?: number | null
+          destination_location_id?: string | null
+          distance_km?: number | null
+          driver_id?: string | null
+          estimated_duration_minutes?: number | null
+          id?: string
+          is_paid?: boolean
+          notes?: string | null
+          order_number?: string
+          origin_address: string
+          origin_lat?: number | null
+          origin_lng?: number | null
+          origin_location_id?: string | null
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          picked_up_at?: string | null
+          recipient_name?: string | null
+          recipient_phone?: string | null
+          scheduled_pickup_at?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total_cost?: number | null
+          tracking_code?: string
+          updated_at?: string
+          vehicle_id?: string | null
+        }
+        Update: {
+          base_cost?: number | null
+          client_id?: string
+          created_at?: string
+          created_by?: string
+          delivered_at?: string | null
+          destination_address?: string
+          destination_lat?: number | null
+          destination_lng?: number | null
+          destination_location_id?: string | null
+          distance_km?: number | null
+          driver_id?: string | null
+          estimated_duration_minutes?: number | null
+          id?: string
+          is_paid?: boolean
+          notes?: string | null
+          order_number?: string
+          origin_address?: string
+          origin_lat?: number | null
+          origin_lng?: number | null
+          origin_location_id?: string | null
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          picked_up_at?: string | null
+          recipient_name?: string | null
+          recipient_phone?: string | null
+          scheduled_pickup_at?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          total_cost?: number | null
+          tracking_code?: string
+          updated_at?: string
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_destination_location_id_fkey"
+            columns: ["destination_location_id"]
+            isOneToOne: false
+            referencedRelation: "client_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_origin_location_id_fkey"
+            columns: ["origin_location_id"]
+            isOneToOne: false
+            referencedRelation: "client_locations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
             referencedColumns: ["id"]
           },
         ]
@@ -202,6 +469,111 @@ export type Database = {
         }
         Relationships: []
       }
+      vehicle_locations: {
+        Row: {
+          accuracy_m: number | null
+          driver_id: string | null
+          heading: number | null
+          id: string
+          latitude: number
+          longitude: number
+          order_id: string | null
+          recorded_at: string
+          speed_kmh: number | null
+          vehicle_id: string
+        }
+        Insert: {
+          accuracy_m?: number | null
+          driver_id?: string | null
+          heading?: number | null
+          id?: string
+          latitude: number
+          longitude: number
+          order_id?: string | null
+          recorded_at?: string
+          speed_kmh?: number | null
+          vehicle_id: string
+        }
+        Update: {
+          accuracy_m?: number | null
+          driver_id?: string | null
+          heading?: number | null
+          id?: string
+          latitude?: number
+          longitude?: number
+          order_id?: string | null
+          recorded_at?: string
+          speed_kmh?: number | null
+          vehicle_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicle_locations_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicle_locations_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicles: {
+        Row: {
+          brand: string | null
+          capacity_kg: number | null
+          capacity_m3: number | null
+          created_at: string
+          driver_id: string | null
+          fuel_level: number | null
+          id: string
+          model: string | null
+          notes: string | null
+          plate: string
+          status: Database["public"]["Enums"]["vehicle_status"]
+          updated_at: string
+          vehicle_type: Database["public"]["Enums"]["vehicle_type"]
+          year: number | null
+        }
+        Insert: {
+          brand?: string | null
+          capacity_kg?: number | null
+          capacity_m3?: number | null
+          created_at?: string
+          driver_id?: string | null
+          fuel_level?: number | null
+          id?: string
+          model?: string | null
+          notes?: string | null
+          plate: string
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          updated_at?: string
+          vehicle_type?: Database["public"]["Enums"]["vehicle_type"]
+          year?: number | null
+        }
+        Update: {
+          brand?: string | null
+          capacity_kg?: number | null
+          capacity_m3?: number | null
+          created_at?: string
+          driver_id?: string | null
+          fuel_level?: number | null
+          id?: string
+          model?: string | null
+          notes?: string | null
+          plate?: string
+          status?: Database["public"]["Enums"]["vehicle_status"]
+          updated_at?: string
+          vehicle_type?: Database["public"]["Enums"]["vehicle_type"]
+          year?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -223,6 +595,33 @@ export type Database = {
         | "warehouse"
         | "pickup_point"
         | "other"
+      order_status:
+        | "draft"
+        | "pending"
+        | "confirmed"
+        | "assigned"
+        | "picked_up"
+        | "in_transit"
+        | "delivered"
+        | "cancelled"
+        | "returned"
+      package_type:
+        | "document"
+        | "small_package"
+        | "medium_package"
+        | "large_package"
+        | "pallet"
+        | "refrigerated"
+        | "fragile"
+      payment_method: "cash" | "transfer" | "credit" | "prepaid"
+      vehicle_status: "available" | "in_route" | "maintenance" | "inactive"
+      vehicle_type:
+        | "motorcycle"
+        | "car"
+        | "van"
+        | "truck_small"
+        | "truck_medium"
+        | "truck_large"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -357,6 +756,36 @@ export const Constants = {
         "warehouse",
         "pickup_point",
         "other",
+      ],
+      order_status: [
+        "draft",
+        "pending",
+        "confirmed",
+        "assigned",
+        "picked_up",
+        "in_transit",
+        "delivered",
+        "cancelled",
+        "returned",
+      ],
+      package_type: [
+        "document",
+        "small_package",
+        "medium_package",
+        "large_package",
+        "pallet",
+        "refrigerated",
+        "fragile",
+      ],
+      payment_method: ["cash", "transfer", "credit", "prepaid"],
+      vehicle_status: ["available", "in_route", "maintenance", "inactive"],
+      vehicle_type: [
+        "motorcycle",
+        "car",
+        "van",
+        "truck_small",
+        "truck_medium",
+        "truck_large",
       ],
     },
   },
