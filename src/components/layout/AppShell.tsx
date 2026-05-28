@@ -18,11 +18,11 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/dashboard", label: "Clientes", icon: Users, disabled: true },
-  { to: "/dashboard", label: "Pedidos", icon: FileText, disabled: true },
-  { to: "/dashboard", label: "Flota", icon: Truck, disabled: true },
+  { to: "/clients", label: "Clientes", icon: Users },
+  { to: "/orders", label: "Pedidos", icon: FileText },
+  { to: "/fleet", label: "Flota", icon: Truck },
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
-  { to: "/dashboard", label: "Tracking", icon: Map, disabled: true },
+  { to: "/tracking", label: "Tracking", icon: Map },
   { to: "/dashboard", label: "Costos", icon: DollarSign, disabled: true },
 ];
 
