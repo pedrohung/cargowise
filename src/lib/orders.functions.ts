@@ -189,7 +189,11 @@ export const updateOrderStatus = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: {
+      status: OrderStatus;
+      picked_up_at?: string;
+      delivered_at?: string;
+    } = { status: data.status };
     if (data.status === "picked_up") patch.picked_up_at = new Date().toISOString();
     if (data.status === "delivered") patch.delivered_at = new Date().toISOString();
     const { error } = await context.supabase.from("orders").update(patch).eq("id", data.id);
@@ -209,7 +213,11 @@ export const assignOrder = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const patch: Record<string, unknown> = {
+    const patch: {
+      driver_id: string | null;
+      vehicle_id: string | null;
+      status?: OrderStatus;
+    } = {
       driver_id: data.driver_id,
       vehicle_id: data.vehicle_id,
     };
