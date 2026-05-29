@@ -16,14 +16,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?: boolean }[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/clients", label: "Clientes", icon: Users },
   { to: "/orders", label: "Pedidos", icon: FileText },
   { to: "/fleet", label: "Flota", icon: Truck },
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/tracking", label: "Tracking", icon: Map },
-  { to: "/dashboard", label: "Costos", icon: DollarSign, disabled: true },
+  { to: "/billing", label: "Costos", icon: DollarSign },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
