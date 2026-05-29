@@ -126,11 +126,7 @@ export const getInvoice = createServerFn({ method: "GET" })
   .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
   .handler(async ({ data, context }) => {
     const [{ data: invoice, error }, { data: items }, { data: payments }] = await Promise.all([
-      context.supabase
-        .from("invoices")
-        .select("*, client:clients(id, name, is_company)")
-        .eq("id", data.id)
-        .single(),
+      context.supabase.from("invoices").select("*").eq("id", data.id).single(),
       context.supabase.from("invoice_items").select("*").eq("invoice_id", data.id),
       context.supabase
         .from("payments")
@@ -139,8 +135,9 @@ export const getInvoice = createServerFn({ method: "GET" })
         .order("paid_at", { ascending: false }),
     ]);
     if (error) throw new Error(error.message);
+    const [withClient] = await attachClients(context.supabase, [invoice]);
     return {
-      invoice: invoice as Invoice,
+      invoice: withClient as Invoice,
       items: (items ?? []) as InvoiceItem[],
       payments: (payments ?? []) as Payment[],
     };
