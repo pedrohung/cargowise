@@ -98,14 +98,14 @@ const invoiceInput = z.object({
 });
 
 async function attachClients<T extends { client_id: string }>(
-  supabase: ReturnType<typeof requireSupabaseAuth> extends never ? never : any,
+  supabase: any,
   rows: T[],
 ): Promise<(T & { client: Invoice["client"] })[]> {
   const ids = Array.from(new Set(rows.map((r) => r.client_id)));
   if (ids.length === 0) return rows.map((r) => ({ ...r, client: null }));
   const { data } = await supabase.from("clients").select("id, name, is_company").in("id", ids);
-  const map = new Map((data ?? []).map((c: any) => [c.id, c]));
-  return rows.map((r) => ({ ...r, client: (map.get(r.client_id) as Invoice["client"]) ?? null }));
+  const map = new Map<string, Invoice["client"]>((data ?? []).map((c: any) => [c.id, c]));
+  return rows.map((r) => ({ ...r, client: map.get(r.client_id) ?? null }));
 }
 
 export const listInvoices = createServerFn({ method: "GET" })
