@@ -97,16 +97,28 @@ const invoiceInput = z.object({
   items: z.array(invoiceItemInput).min(1),
 });
 
+async function attachClients<T extends { client_id: string }>(
+  supabase: ReturnType<typeof requireSupabaseAuth> extends never ? never : any,
+  rows: T[],
+): Promise<(T & { client: Invoice["client"] })[]> {
+  const ids = Array.from(new Set(rows.map((r) => r.client_id)));
+  if (ids.length === 0) return rows.map((r) => ({ ...r, client: null }));
+  const { data } = await supabase.from("clients").select("id, name, is_company").in("id", ids);
+  const map = new Map((data ?? []).map((c: any) => [c.id, c]));
+  return rows.map((r) => ({ ...r, client: (map.get(r.client_id) as Invoice["client"]) ?? null }));
+}
+
 export const listInvoices = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("invoices")
-      .select("*, client:clients(id, name, is_company)")
+      .select("*")
       .order("created_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);
-    return (data ?? []) as Invoice[];
+    const withClients = await attachClients(context.supabase, data ?? []);
+    return withClients as Invoice[];
   });
 
 export const getInvoice = createServerFn({ method: "GET" })
