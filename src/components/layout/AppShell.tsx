@@ -23,7 +23,7 @@ const NAV = [
   { to: "/fleet", label: "Flota", icon: Truck },
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/tracking", label: "Tracking", icon: Map },
-  { to: "/dashboard", label: "Costos", icon: DollarSign, disabled: true },
+  { to: "/billing", label: "Costos", icon: DollarSign },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
