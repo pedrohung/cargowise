@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?: boolean }[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/clients", label: "Clientes", icon: Users },
   { to: "/orders", label: "Pedidos", icon: FileText },
