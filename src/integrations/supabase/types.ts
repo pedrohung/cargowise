@@ -134,6 +134,78 @@ export type Database = {
         }
         Relationships: []
       }
+      company_config: {
+        Row: {
+          address: string | null
+          created_at: string
+          default_currency: Database["public"]["Enums"]["currency_code"]
+          default_diesel_price: number
+          default_usd_exchange_rate: number
+          email: string | null
+          enzona_qr_url: string | null
+          id: string
+          invoice_footer_text: string | null
+          invoice_prefix: string
+          is_iva_registered: boolean
+          legal_name: string
+          logo_url: string | null
+          phone: string | null
+          province: string | null
+          tax_id: string | null
+          territorial_contribution_rate: number
+          trade_name: string | null
+          transfermovil_qr_url: string | null
+          updated_at: string
+          wizard_completed: boolean
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          default_currency?: Database["public"]["Enums"]["currency_code"]
+          default_diesel_price?: number
+          default_usd_exchange_rate?: number
+          email?: string | null
+          enzona_qr_url?: string | null
+          id?: string
+          invoice_footer_text?: string | null
+          invoice_prefix?: string
+          is_iva_registered?: boolean
+          legal_name?: string
+          logo_url?: string | null
+          phone?: string | null
+          province?: string | null
+          tax_id?: string | null
+          territorial_contribution_rate?: number
+          trade_name?: string | null
+          transfermovil_qr_url?: string | null
+          updated_at?: string
+          wizard_completed?: boolean
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          default_currency?: Database["public"]["Enums"]["currency_code"]
+          default_diesel_price?: number
+          default_usd_exchange_rate?: number
+          email?: string | null
+          enzona_qr_url?: string | null
+          id?: string
+          invoice_footer_text?: string | null
+          invoice_prefix?: string
+          is_iva_registered?: boolean
+          legal_name?: string
+          logo_url?: string | null
+          phone?: string | null
+          province?: string | null
+          tax_id?: string | null
+          territorial_contribution_rate?: number
+          trade_name?: string | null
+          transfermovil_qr_url?: string | null
+          updated_at?: string
+          wizard_completed?: boolean
+        }
+        Relationships: []
+      }
       expenses: {
         Row: {
           amount: number
