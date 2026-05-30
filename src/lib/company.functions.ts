@@ -71,10 +71,9 @@ export const updateCompanyConfig = createServerFn({ method: "POST" })
     if (!existing) throw new Error("Configuración no inicializada");
 
     // Normalize empty strings to null
-    const payload: Record<string, unknown> = {};
-    for (const [k, v] of Object.entries(data)) {
-      payload[k] = v === "" ? null : v;
-    }
+    const payload = Object.fromEntries(
+      Object.entries(data).map(([k, v]) => [k, v === "" ? null : v]),
+    ) as typeof data;
 
     const { data: updated, error } = await context.supabase
       .from("company_config")
