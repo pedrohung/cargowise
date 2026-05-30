@@ -1,5 +1,5 @@
 import { Suspense, useState } from "react";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect, Link } from "@tanstack/react-router";
 import { useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -146,7 +146,11 @@ function InvoicesContent() {
                 const pending = Number(inv.total) - Number(inv.amount_paid);
                 return (
                   <tr key={inv.id} className="border-t border-border hover:bg-muted/20 transition-colors">
-                    <td className="px-4 py-3 font-mono text-xs">{inv.invoice_number}</td>
+                    <td className="px-4 py-3 font-mono text-xs">
+                      <Link to="/invoices/$id" params={{ id: inv.id }} className="text-primary hover:underline">
+                        {inv.invoice_number}
+                      </Link>
+                    </td>
                     <td className="px-4 py-3">{inv.client?.name ?? "—"}</td>
                     <td className="px-4 py-3 text-muted-foreground text-xs">
                       {new Date(inv.issue_date).toLocaleDateString("es-CU")}
