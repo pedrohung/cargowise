@@ -24,6 +24,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?:
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/tracking", label: "Tracking", icon: Map },
   { to: "/billing", label: "Costos", icon: DollarSign },
+  { to: "/setup", label: "Configuración", icon: Settings },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
