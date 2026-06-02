@@ -12,6 +12,8 @@ import {
   FileText,
   LogOut,
   Settings,
+  Package,
+  Wrench,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -21,6 +23,8 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?:
   { to: "/clients", label: "Clientes", icon: Users },
   { to: "/orders", label: "Pedidos", icon: FileText },
   { to: "/fleet", label: "Flota", icon: Truck },
+  { to: "/maintenance", label: "Mantenimiento", icon: Wrench },
+  { to: "/inventory", label: "Inventario", icon: Package },
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/tracking", label: "Tracking", icon: Map },
   { to: "/billing", label: "Costos", icon: DollarSign },
