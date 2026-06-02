@@ -376,6 +376,105 @@ export type Database = {
         }
         Relationships: []
       }
+      maintenance_parts: {
+        Row: {
+          created_at: string
+          id: string
+          maintenance_id: string
+          part_id: string
+          quantity: number
+          total: number
+          unit_cost: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          maintenance_id: string
+          part_id: string
+          quantity?: number
+          total?: number
+          unit_cost?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          maintenance_id?: string
+          part_id?: string
+          quantity?: number
+          total?: number
+          unit_cost?: number
+        }
+        Relationships: []
+      }
+      maintenance_records: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          created_by: string
+          currency: Database["public"]["Enums"]["currency_code"]
+          description: string
+          id: string
+          labor_cost: number
+          maintenance_type: Database["public"]["Enums"]["maintenance_type"]
+          next_service_date: string | null
+          next_service_km: number | null
+          notes: string | null
+          odometer_km: number | null
+          parts_cost: number
+          performed_by: string | null
+          scheduled_date: string | null
+          status: Database["public"]["Enums"]["maintenance_status"]
+          total_cost: number
+          updated_at: string
+          vehicle_id: string
+          workshop: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: Database["public"]["Enums"]["currency_code"]
+          description: string
+          id?: string
+          labor_cost?: number
+          maintenance_type?: Database["public"]["Enums"]["maintenance_type"]
+          next_service_date?: string | null
+          next_service_km?: number | null
+          notes?: string | null
+          odometer_km?: number | null
+          parts_cost?: number
+          performed_by?: string | null
+          scheduled_date?: string | null
+          status?: Database["public"]["Enums"]["maintenance_status"]
+          total_cost?: number
+          updated_at?: string
+          vehicle_id: string
+          workshop?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string
+          currency?: Database["public"]["Enums"]["currency_code"]
+          description?: string
+          id?: string
+          labor_cost?: number
+          maintenance_type?: Database["public"]["Enums"]["maintenance_type"]
+          next_service_date?: string | null
+          next_service_km?: number | null
+          notes?: string | null
+          odometer_km?: number | null
+          parts_cost?: number
+          performed_by?: string | null
+          scheduled_date?: string | null
+          status?: Database["public"]["Enums"]["maintenance_status"]
+          total_cost?: number
+          updated_at?: string
+          vehicle_id?: string
+          workshop?: string | null
+        }
+        Relationships: []
+      }
       municipalities: {
         Row: {
           code: string
@@ -630,6 +729,57 @@ export type Database = {
           },
         ]
       }
+      parts: {
+        Row: {
+          category: Database["public"]["Enums"]["part_category"]
+          created_at: string
+          currency: Database["public"]["Enums"]["currency_code"]
+          description: string | null
+          id: string
+          is_active: boolean
+          location: string | null
+          min_stock: number
+          name: string
+          sku: string | null
+          stock: number
+          unit: string
+          unit_cost: number
+          updated_at: string
+        }
+        Insert: {
+          category?: Database["public"]["Enums"]["part_category"]
+          created_at?: string
+          currency?: Database["public"]["Enums"]["currency_code"]
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          min_stock?: number
+          name: string
+          sku?: string | null
+          stock?: number
+          unit?: string
+          unit_cost?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["part_category"]
+          created_at?: string
+          currency?: Database["public"]["Enums"]["currency_code"]
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          min_stock?: number
+          name?: string
+          sku?: string | null
+          stock?: number
+          unit?: string
+          unit_cost?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
@@ -737,6 +887,42 @@ export type Database = {
           latitude?: number | null
           longitude?: number | null
           name?: string
+        }
+        Relationships: []
+      }
+      stock_movements: {
+        Row: {
+          created_at: string
+          id: string
+          movement_type: Database["public"]["Enums"]["stock_movement_type"]
+          part_id: string
+          quantity: number
+          reason: string | null
+          recorded_by: string
+          reference: string | null
+          unit_cost: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          movement_type: Database["public"]["Enums"]["stock_movement_type"]
+          part_id: string
+          quantity: number
+          reason?: string | null
+          recorded_by?: string
+          reference?: string | null
+          unit_cost?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          movement_type?: Database["public"]["Enums"]["stock_movement_type"]
+          part_id?: string
+          quantity?: number
+          reason?: string | null
+          recorded_by?: string
+          reference?: string | null
+          unit_cost?: number | null
         }
         Relationships: []
       }
@@ -899,6 +1085,18 @@ export type Database = {
         | "warehouse"
         | "pickup_point"
         | "other"
+      maintenance_status:
+        | "scheduled"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
+      maintenance_type:
+        | "preventive"
+        | "corrective"
+        | "inspection"
+        | "tire_change"
+        | "oil_change"
+        | "other"
       order_status:
         | "draft"
         | "pending"
@@ -917,7 +1115,19 @@ export type Database = {
         | "pallet"
         | "refrigerated"
         | "fragile"
+      part_category:
+        | "engine"
+        | "tires"
+        | "electrical"
+        | "body"
+        | "fluids"
+        | "filters"
+        | "brakes"
+        | "suspension"
+        | "consumables"
+        | "other"
       payment_method: "cash" | "transfer" | "credit" | "prepaid"
+      stock_movement_type: "in" | "out" | "adjustment"
       vehicle_status: "available" | "in_route" | "maintenance" | "inactive"
       vehicle_type:
         | "motorcycle"
@@ -1074,6 +1284,20 @@ export const Constants = {
         "pickup_point",
         "other",
       ],
+      maintenance_status: [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled",
+      ],
+      maintenance_type: [
+        "preventive",
+        "corrective",
+        "inspection",
+        "tire_change",
+        "oil_change",
+        "other",
+      ],
       order_status: [
         "draft",
         "pending",
@@ -1094,7 +1318,20 @@ export const Constants = {
         "refrigerated",
         "fragile",
       ],
+      part_category: [
+        "engine",
+        "tires",
+        "electrical",
+        "body",
+        "fluids",
+        "filters",
+        "brakes",
+        "suspension",
+        "consumables",
+        "other",
+      ],
       payment_method: ["cash", "transfer", "credit", "prepaid"],
+      stock_movement_type: ["in", "out", "adjustment"],
       vehicle_status: ["available", "in_route", "maintenance", "inactive"],
       vehicle_type: [
         "motorcycle",
