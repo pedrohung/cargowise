@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
 import { Route as AuthenticatedTrackingRouteImport } from './routes/_authenticated/tracking'
 import { Route as AuthenticatedSetupRouteImport } from './routes/_authenticated/setup'
 import { Route as AuthenticatedOrdersRouteImport } from './routes/_authenticated/orders'
@@ -39,6 +40,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedTrackingRoute = AuthenticatedTrackingRouteImport.update({
   id: '/tracking',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof AuthenticatedOrdersRoute
   '/setup': typeof AuthenticatedSetupRoute
   '/tracking': typeof AuthenticatedTrackingRoute
+  '/users': typeof AuthenticatedUsersRoute
   '/invoices/$id': typeof AuthenticatedInvoicesIdRoute
 }
 export interface FileRoutesByTo {
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/orders': typeof AuthenticatedOrdersRoute
   '/setup': typeof AuthenticatedSetupRoute
   '/tracking': typeof AuthenticatedTrackingRoute
+  '/users': typeof AuthenticatedUsersRoute
   '/invoices/$id': typeof AuthenticatedInvoicesIdRoute
 }
 export interface FileRoutesById {
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/_authenticated/orders': typeof AuthenticatedOrdersRoute
   '/_authenticated/setup': typeof AuthenticatedSetupRoute
   '/_authenticated/tracking': typeof AuthenticatedTrackingRoute
+  '/_authenticated/users': typeof AuthenticatedUsersRoute
   '/_authenticated/invoices_/$id': typeof AuthenticatedInvoicesIdRoute
 }
 export interface FileRouteTypes {
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/setup'
     | '/tracking'
+    | '/users'
     | '/invoices/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/setup'
     | '/tracking'
+    | '/users'
     | '/invoices/$id'
   id:
     | '__root__'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '/_authenticated/orders'
     | '/_authenticated/setup'
     | '/_authenticated/tracking'
+    | '/_authenticated/users'
     | '/_authenticated/invoices_/$id'
   fileRoutesById: FileRoutesById
 }
@@ -243,6 +255,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/users': {
+      id: '/_authenticated/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthenticatedUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/tracking': {
       id: '/_authenticated/tracking'
@@ -351,6 +370,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedOrdersRoute: typeof AuthenticatedOrdersRoute
   AuthenticatedSetupRoute: typeof AuthenticatedSetupRoute
   AuthenticatedTrackingRoute: typeof AuthenticatedTrackingRoute
+  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
   AuthenticatedInvoicesIdRoute: typeof AuthenticatedInvoicesIdRoute
 }
 
@@ -367,6 +387,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedOrdersRoute: AuthenticatedOrdersRoute,
   AuthenticatedSetupRoute: AuthenticatedSetupRoute,
   AuthenticatedTrackingRoute: AuthenticatedTrackingRoute,
+  AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedInvoicesIdRoute: AuthenticatedInvoicesIdRoute,
 }
 

@@ -14,11 +14,12 @@ import {
   Settings,
   Package,
   Wrench,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?: boolean }[] = [
+const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?: boolean; adminOnly?: boolean }[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/clients", label: "Clientes", icon: Users },
   { to: "/orders", label: "Pedidos", icon: FileText },
@@ -28,6 +29,7 @@ const NAV: { to: string; label: string; icon: typeof LayoutDashboard; disabled?:
   { to: "/locations", label: "Puntos de entrega", icon: MapPin },
   { to: "/tracking", label: "Tracking", icon: Map },
   { to: "/billing", label: "Costos", icon: DollarSign },
+  { to: "/users", label: "Usuarios", icon: ShieldCheck, adminOnly: true },
   { to: "/setup", label: "Configuración", icon: Settings },
 ];
 
@@ -68,7 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex-1 p-3 space-y-0.5">
-          {NAV.map((item, idx) => {
+          {NAV.filter((item) => !item.adminOnly || data.roles.includes("admin")).map((item, idx) => {
             const Icon = item.icon;
             const isActive = currentPath === item.to && !item.disabled;
             const baseCls = cn(
